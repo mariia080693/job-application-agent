@@ -9,7 +9,7 @@ data_scientist_searcher = Agent(
     name="data_scientist_searcher",
     model=config.worker_model,
     instruction="""
-    Search for the recent 'Data scientist' job posting in Melbourne, Australia.
+    Search for the recent 'Data scientist' job posting in Melbourne, Australia. Find just one relevant job posting.
     Show all the details of the job description.
     Format your output clearly so all the job information can be easily identified.
     The information should include (if available) company name, location, salary, requirements, and detailed job description.
