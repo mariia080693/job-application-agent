@@ -1,5 +1,4 @@
 from .data_scientist_searcher import robust_data_scientist_searcher
-from .information_synthesizer import information_synthesizer
 from .cover_letter_planner import cover_letter_planner
 from .cover_letter_writer import cover_letter_writer
 from .cover_letter_editor import cover_letter_editor

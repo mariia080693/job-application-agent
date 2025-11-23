@@ -45,7 +45,8 @@ data_scientist_searcher = Agent(
     - Industry and size (if available)
     - Culture, values, mission (explicit or inferred)
 
-    Present all information clearly and neatly so the user can quickly understand the role. 
+    Present all information clearly and neatly so the user can quickly understand the role.
+    Print '!TYPE OK TO PROCEED TO THE NEXT STEP OR RUN THE SEARCH AGENT AGAIN!' 
     """,
     tools=[google_search],
     output_key="job_postings",
