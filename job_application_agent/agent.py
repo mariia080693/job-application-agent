@@ -1,16 +1,10 @@
-import datetime
-
-from google.adk.agents import Agent, ParallelAgent
+from google.adk.agents import Agent
 from google.adk.tools import FunctionTool
 
 from .config import config
 from .sub_agents import (
     robust_data_scientist_searcher,
-    key_requirements_analyzer,
-    secondary_requirements_analyzer,
-    company_culture_analyzer,
     information_synthesizer,
-    cv_converter,
     cover_letter_planner,
     cover_letter_writer,
     cover_letter_editor,
@@ -20,74 +14,21 @@ from .tools import read_cv
 
 # --- AGENT DEFINITIONS ---
 
-'''
-job_analysis_agent = ParallelAgent(
-    name="job_analysis_agent",
-    sub_agents=[
-        key_requirements_analyzer,
-        secondary_requirements_analyzer,
-        company_culture_analyzer,
-    ],
-)
-'''
-
 interactive_job_application_agent = Agent(
     name="interactive_job_application_agent",
     model=config.worker_model,
     description="A job application assistant that helps users search for Data Scientist jobs and create cover letters.",
     instruction="""You are Your Friendly HR Charlie, a job application assistant specializing in Data Scientist roles in Melbourne.
 
-When the user first contacts you, greet them warmly and then:
+IMPORTANT: When the user first contacts you, introduce yourself by saying 'Hi, I am Your Friendly HR Charlie. I am happy to assist you with your job search and application process!' and then:
 
-1. Use Google Search to find the **single most recent** Data Scientist job posting in Melbourne, Australia (posted within the last 3 days if possible).
-
-2. Retrieve and present **all important information** from the job posting. 
-   Your goal is to extract *comprehensive, structured* details — not just surface-level text.
-
-3. In your output, clearly present the information with the following sections:
-
-   **A. Job Overview**
-   - Job title
-   - Company name
-   - Location
-   - Work mode (onsite / hybrid / remote)
-   - Salary or salary range (if listed)
-   - Seniority level (junior / mid / senior / lead)
-   - Employment type (full-time, contract, etc.)
-   - How recently the job was posted
-
-   **B. Key Responsibilities**
-   - Responsibilities listed explicitly
-
-
-   **C. Required Skills (Primary Requirements)**
-   - Technical skills (e.g., Python, SQL, ML, cloud, statistics)
-   - Domain-specific skills (e.g., finance, health, retail)
-   - Experience level or years required
-
-   **D. Secondary / Nice-to-Have Requirements**
-   - Preferred skills, extra tools or frameworks
-   - Desirable domain experience
-   - Soft skills
-
-   **E. Tools, Technologies, and Methods Mentioned**
-   - Programming languages
-   - ML frameworks + libraries
-   - Cloud platforms
-   - Data tools / visualization tools
-   - MLOps / deployment requirements
-
-   **F. Company Background**
-   - Company description
-   - Industry and size (if available)
-   - Culture, values, mission (explicit or inferred)
-   - Recent news or notable context (only from the job posting, do not search further)
-
-4. Present all information clearly and neatly so the user can quickly understand the role. 
-
-   Current date: {datetime.datetime.now().strftime("%Y-%m-%d")}
+1. Use robust_data_scientist_searcher to find the **single most recent** Data Scientist job posting in Melbourne, Australia (posted within the last 3 days if possible). Present results in Markdown format.
+2. Only after you finished with the previous step, without waiting for the user feedback, use read_cv to load and extract text from the file 'CV.pdf' with job applicant information in the project directory. Never ask the user for a path; always read from 'CV.pdf'.
+   After extraction, transform content of the 'CV.pdf' file into a clean, well-structured Markdown document. Organize it into clear sections (e.g., Education, Experience, Skills, Publications) and format it for easy reading.
+   Present the information clearly and neatly so the user can quickly understand information from the 'CV.pdf'.
 """,
     sub_agents=[robust_data_scientist_searcher],
+    tools=[FunctionTool(read_cv)],
     output_key="final_cover_letter",
 )
 

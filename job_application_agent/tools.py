@@ -2,13 +2,13 @@ from google.adk.tools import FunctionTool
 import pdfplumber
 
 def read_cv(file_path: str) -> str:
-    """Reads the contents of a CV file (PDF) using pdfplumber for better structure preservation.
+    """Reads the contents of a CV.pdf file using pdfplumber for better structure preservation.
 
     Args:
-        file_path: The path to the CV file.
+        file_path: The path to the CV.pdf file.
 
     Returns:
-        The contents of the CV file as a string.
+        The contents of the CV.pdf file as a string.
     """
     if not file_path.lower().endswith('.pdf'):
         raise ValueError("Only PDF files are supported for CV reading.")
