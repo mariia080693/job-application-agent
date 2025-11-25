@@ -5,7 +5,7 @@ from .config import config
 from .sub_agents import (
     robust_data_scientist_searcher,
     cover_letter_planner,
- #   cover_letter_writer,
+    cover_letter_writer,
  #   cover_letter_editor,
 )
 
@@ -27,8 +27,9 @@ IMPORTANT: When the user first contacts you, introduce yourself by saying 'Hi, I
    After extraction, transform content of the 'CV.pdf' file into a clean, well-structured document. Organize it into clear sections (e.g., Education, Experience, Skills, Publications) and format it for easy reading.
    Present the information clearly and neatly so the user can quickly understand information from the 'CV.pdf'.
 3. You must complete the preceding step step before moving to this one. Use cover_letter_planner to create a good structure for a cover letter based on the job description and the data extracted from the user's CV.
+4. Straight after completing the previous step execute this step. Use cover_letter_writer to draft a professional cover letter based on the outline from the previous step, the job description, and the user's CV.
 """,
-    sub_agents=[robust_data_scientist_searcher, cover_letter_planner],
+    sub_agents=[robust_data_scientist_searcher, cover_letter_planner, cover_letter_writer],
     tools=[FunctionTool(read_cv)],
     output_key="final_cover_letter",
 )
