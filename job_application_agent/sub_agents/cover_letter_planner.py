@@ -1,4 +1,5 @@
 from google.adk.agents import Agent
+from ..agent_utils import suppress_output_callback
 from ..config import config
 
 COVER_LETTER_PLANNER_INSTRUCTION = """
@@ -9,7 +10,7 @@ You have two inputs:
 - the user's CV information (from the read_cv tool)
 You need to compare the information and outline a cover letter structure that highlights the user's skills and experience that are most relevant to the job.
 The outline should be a list of key points to be included in the cover letter.
-Present the outline clearly to the user.
+Present the outline clearly to the user and move to the next step.
 """
 
 cover_letter_planner = Agent(
