@@ -30,7 +30,7 @@ IMPORTANT: When the user first contacts you, introduce yourself by saying 'Hi, I
    Use cover_letter_planner to create a good structure for a cover letter based on the job description and the data extracted from the user's CV.
 4. You must complete the preceding step and directly move to the next one without asking for the user feedback.
    Use cover_letter_writer to draft a professional cover letter based on the outline from the previous step, the job description, and the user's CV.
-5. After generating the cover letter, immediately use save_cover_letter_to_file to save it to a file called 'Cover_letter.pdf'.
+5. After generating the cover letter, immediately use save_cover_letter_to_file to save it to a file called 'Cover_letter.pdf'. Do not ask for user confirmation. Do not ask user to specidy a file name, it should be always 'Cover_letter.pdf'.
    Make sure to pass the complete cover letter text to the save function.
    Display the result of the save operation to the user.
 """,
