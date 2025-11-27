@@ -1,5 +1,4 @@
 from google.adk.agents import Agent
-from ..agent_utils import suppress_output_callback
 from ..config import config
 
 COVER_LETTER_PLANNER_INSTRUCTION = """
