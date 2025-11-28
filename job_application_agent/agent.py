@@ -1,13 +1,15 @@
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools import FunctionTool
-from .tools import read_cv, save_cover_letter_to_file
+
 
 from .config import config
 from .sub_agents import (
     data_scientist_searcher,
+    cv_reader,
     cover_letter_planner,
     cover_letter_writer,
+    save_cover_letter,
 )
 
 
@@ -35,21 +37,19 @@ Check again that you have displayed the ASCII art exactly as formatted above, if
 Right after that proceed with:
 
 1. Use data_scientist_searcher to find the **single most recent** Data Scientist job posting in Melbourne, Australia (posted within the last 3 days if possible).
-   You must display all information about the found job clearly and neatly so the user can quickly understand the role.
+   You must show all information about the found job clearly and neatly so the user can quickly understand the role.
 2. You must complete the preceding step before moving to the next step.
-   Use read_cv to load and extract text from the file 'CV.pdf' with job applicant information in the project directory. Never ask the user for a path; always read from 'CV.pdf'.
-   After extraction, transform content of the 'CV.pdf' file into a clean, well-structured document. Organize it into clear sections (e.g., Education, Experience, Skills, Publications) and format it for easy reading.
-   You must display the information clearly and neatly so the user can quickly understand information from the 'CV.pdf'.
+   Use cv_reader to load, extract and present text from the file 'CV.pdf' with job applicant information. Never ask the user for a path; always read from 'CV.pdf'.
 3. You must complete the preceding step before moving to the next step.
    Use cover_letter_planner to create a good structure for a cover letter based on the job description and the data extracted from the user's CV.
 4. You must complete the preceding step before moving to the next step.
    Use cover_letter_writer to draft a professional cover letter based on the outline from the previous step, the job description, and the user's CV.
-5. After generating the cover letter, use save_cover_letter_to_file to save it to a file called 'Cover_letter.pdf'. Do not ask for user confirmation. Do not ask user to specidy a file name, it should be always 'Cover_letter.pdf'.
-   Make sure to pass the complete cover letter text to the save function.
-   Display the result of the save operation to the user.
+5. After generating the cover letter, use save_cover_letter to save cover letter to a file called 'Cover_letter.pdf'.
+   Display the result of the save operation to the user by printing:
+   "Cover letter has been successfully saved to 'Cover_letter.pdf'. Woof-woof!".
 """,
     sub_agents=[cover_letter_planner, cover_letter_writer],
-    tools=[AgentTool(data_scientist_searcher), FunctionTool(read_cv), FunctionTool(save_cover_letter_to_file)],
+    tools=[AgentTool(data_scientist_searcher), AgentTool(cv_reader), AgentTool(save_cover_letter)],
     output_key="final_cover_letter",
 )
 
