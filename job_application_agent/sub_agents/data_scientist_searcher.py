@@ -42,7 +42,7 @@ data_scientist_searcher = LlmAgent(
     - Industry and size (if available)
     - Culture, values, mission (explicit or inferred)
     
-    You must display all information clearly and neatly so the user can quickly understand the role.
+    IMPORTANT: You must display all information clearly and neatly so the user can quickly understand the role.
     """,
     tools=[google_search],
     output_key="job_postings",

@@ -9,7 +9,7 @@ You have two inputs:
 -  the user's CV information (from the cv_reader agent use {cv_content} output)
 You need to compare the information and outline a cover letter structure that highlights the user's skills and experience that are most relevant to the job.
 The outline should be a list of key points to be included in the cover letter.
-Present the outline clearly to the user and move to the next step.
+Present the outline clearly to the user and move to the next step without asking for the user's feedback.
 """
 
 cover_letter_planner = Agent(

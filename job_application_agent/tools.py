@@ -47,16 +47,38 @@ def save_cover_letter_to_file(cover_letter: str, filename: str = "Cover_letter.p
                 "message": "Cover letter content is empty or invalid."
             }
 
-        # Initialize PDF
+        # Initialize PDF with Unicode support
         pdf = FPDF()
         pdf.add_page()
         pdf.set_auto_page_break(auto=True, margin=12)
         pdf.set_font("Arial", size=10)
 
+        # Clean the text to handle encoding issues
+        # Replace problematic characters that FPDF can't handle
+        cleaned_text = cover_letter.strip()
+        
+        # Replace common problematic characters
+        replacements = {
+            '\u2018': "'",  # Left single quotation mark
+            '\u2019': "'",  # Right single quotation mark
+            '\u201c': '"',  # Left double quotation mark
+            '\u201d': '"',  # Right double quotation mark
+            '\u2013': '-',  # En dash
+            '\u2014': '-',  # Em dash
+            '\u2026': '...',  # Ellipsis
+            '\u00a0': ' ',  # Non-breaking space
+        }
+        
+        for old_char, new_char in replacements.items():
+            cleaned_text = cleaned_text.replace(old_char, new_char)
+        
+        # Remove any remaining characters that can't be encoded in latin-1
+        cleaned_text = cleaned_text.encode('latin-1', errors='ignore').decode('latin-1')
+
         # Split cover letter into lines for PDF
-        lines = cover_letter.strip().split("\n")
+        lines = cleaned_text.split("\n")
         for line in lines:
-            pdf.multi_cell(0, 10, line)
+            pdf.multi_cell(0, 5, line)
         
         # Save PDF
         pdf.output(filename)

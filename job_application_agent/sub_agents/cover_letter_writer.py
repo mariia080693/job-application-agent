@@ -18,8 +18,7 @@ TEMPLATE:
 '''
 +61 412 345 678 
 maria.timofeeva@example.com
-Melbourne, Australia 
-28 November 2025
+28 November 2025, Melbourne, Australia
 
 FutureMed Analytics
 
@@ -41,6 +40,9 @@ Maria Timofeeva
 The cover letter should be professional, concise, easy to read and it should be written in natural not AI style language. Please try to avoid overly complex sentences and AI-like phrasing.
 Do not add any information that is not stated in {cover_letter_outline}.
 Present the cover letter clearly to the user. Current date: """ + datetime.datetime.now().strftime("%B %d, %Y") +  """
+
+Ask the user for the feedback by printing: 
+"Are you happy with the drafted cover letter? If you want any changes, please specify them."
 """
 
 cover_letter_writer = Agent(
