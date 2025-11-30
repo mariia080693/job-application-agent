@@ -1,14 +1,12 @@
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
-from google.adk.tools import FunctionTool
 
 
 from .config import config
 from .sub_agents import (
     data_scientist_searcher,
     cv_reader,
-    cover_letter_planner,
-    cover_letter_writer,
+    sequential_planner_writer,
     save_cover_letter,
 )
 
@@ -46,22 +44,19 @@ Right after that proceed with:
    You must present all information about the CV clearly and neatly, and then move to the next step.
    
 4. You must complete the preceding step before moving to this step.
-   Use cover_letter_planner to create a good structure for a cover letter based on the job description and the data extracted from the user's CV.
-   You must present the outline of the cover letter to the user and then move to the next step.
+   Use sequential_planner_writer to first create a good structure for a cover letter based on the job description and the data extracted from the user's CV, and then draft a professional cover letter based on the created outline.
+   Present the drafted cover letter to the user.
    
-5. You must complete the preceding step before moving to this step.
-   Use cover_letter_writer to draft a professional cover letter based on the outline from the previous step.
+5.  Use the user's feedback from step 4 to decide what to do next. If user makes any requested revisions, revise the cover letter accordingly. If the user is happy with the cover letter, move to the next step. 
    
-6.  Use the user's feedback from step 5 to decide what to do next. If user makes any requested revisions, revise the cover letter accordingly. If the user is happy with the cover letter, move to the next step. 
-   
-7.  The user should reply whether he wants to save the cover letter to a file. Ask the user by printing:
+6.  The user should reply whether he wants to save the cover letter to a file. Ask the user by printing:
    "Do you want to save the cover letter to a file?" If yes, move to the next step. If not, end the process by printing: "No worries, the cover letter will not be saved. Woof-woof!".
    
-8. Use save_cover_letter to save cover letter to a file called 'Cover_letter.pdf'.
+7. Use save_cover_letter to save cover letter to a file called 'Cover_letter.pdf'.
    Display the result of the save operation to the user by printing:
    "Cover letter has been successfully saved to 'Cover_letter.pdf'. Woof-woof!".
 """,
-    sub_agents=[cover_letter_planner, cover_letter_writer],
+    sub_agents=[sequential_planner_writer],
     tools=[AgentTool(data_scientist_searcher), AgentTool(cv_reader), AgentTool(save_cover_letter)],
     output_key="final_cover_letter",
 )

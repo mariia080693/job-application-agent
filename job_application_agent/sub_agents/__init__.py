@@ -3,3 +3,4 @@ from .cv_reader import cv_reader
 from .cover_letter_planner import cover_letter_planner
 from .cover_letter_writer import cover_letter_writer
 from .save_cover_letter import save_cover_letter
+from .sequential_planner_writer import sequential_planner_writer

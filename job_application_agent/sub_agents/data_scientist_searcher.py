@@ -1,12 +1,17 @@
 from google.adk.agents import LlmAgent
 from google.adk.tools import google_search
 from ..config import config
+import datetime
 
 data_scientist_searcher = LlmAgent(
     name="data_scientist_searcher",
     model=config.worker_model,
     instruction="""
-    Search for just one recent 'Data scientist' job posting in Melbourne (posted within the last 3 days if possible), Australia. Find just one relevant job posting.
+    Search for just one recent 'Data scientist' job posting in Melbourne (posted within the last 7 days if possible), Australia.
+    
+    Current date: """ + datetime.datetime.now().strftime("%B %d, %Y") +  """
+    
+    Find just one relevant job posting.
     
     Retrieve and present **all information** from the job posting. 
     Your goal is to extract *comprehensive, structured* details — not just surface-level text.
