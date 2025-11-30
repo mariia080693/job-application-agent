@@ -3,6 +3,7 @@ from google.adk.tools import google_search
 from ..config import config
 import datetime
 
+# LlmAgent: Optimized for web search and structured information extraction
 data_scientist_searcher = LlmAgent(
     name="data_scientist_searcher",
     model=config.worker_model,

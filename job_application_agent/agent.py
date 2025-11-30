@@ -11,9 +11,10 @@ from .sub_agents import (
 )
 
 
+# Hierarchical agent architecture: Root agent orchestrates specialized sub-agents
+# Design pattern: Each sub-agent handles one domain (search, parsing, planning, writing)
 
-# --- AGENT DEFINITIONS ---
-
+# Root agent: Manages workflow state and human-in-the-loop interactions
 interactive_job_application_agent = Agent(
     name="interactive_job_application_agent",
     model=config.worker_model,

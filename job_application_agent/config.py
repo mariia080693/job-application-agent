@@ -6,6 +6,7 @@ import google.auth
 
 load_dotenv()
 
+# Support two authentication modes: Vertex AI (production) or API Key (development)
 if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "True").lower() == "true":
     try:
         _, project_id = google.auth.default()
@@ -15,11 +16,9 @@ if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "True").lower() == "true":
         print(
             "Authentication failed. Please configure your environment with Application Default Credentials."
         )
-        # Handle the error appropriately, e.g., by exiting or using a fallback.
         project_id = None
 else:
-    # When using an API key, a project ID is not required.
-    # The GOOGLE_API_KEY is loaded from the .env file by load_dotenv().
+    # API key mode: simpler setup for development/testing
     if not os.getenv("GOOGLE_API_KEY"):
         print(
             "GOOGLE_API_KEY not found. Please set it in your .env file when GOOGLE_GENAI_USE_VERTEXAI is False."

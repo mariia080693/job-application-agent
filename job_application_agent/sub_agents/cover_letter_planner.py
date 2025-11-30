@@ -1,6 +1,8 @@
 from google.adk.agents import Agent
 from ..config import config
 
+# Planner agent: Strategic mapping of CV → job requirements 
+# Design: Separate planning from execution improves output coherence
 COVER_LETTER_PLANNER_INSTRUCTION = """
 You are a cover letter planner.
 Your goal is to create a good structure for a cover letter based on the job description and the data extracted from the user's CV.

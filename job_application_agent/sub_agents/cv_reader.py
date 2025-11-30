@@ -4,6 +4,7 @@ from job_application_agent.tools import read_cv
 from ..config import config
 import datetime
 
+# Hardcoded file path ('CV.pdf') simplifies UX - no need for file path prompts
 CV_READER_INSTRUCTION = """
 You are a professional CV reader.
 Use read_cv tool to load and extract text from the file 'CV.pdf' with job applicant information in the project directory. Never ask the user for a path; always read from 'CV.pdf'.

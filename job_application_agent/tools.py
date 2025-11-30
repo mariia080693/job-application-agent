@@ -16,6 +16,7 @@ def read_cv(file_path: str) -> str:
         raise ValueError("Only PDF files are supported for CV reading.")
     try:
         text = ""
+        # pdfplumber preserves text layout better than PyPDF2 for complex CV formats
         with pdfplumber.open(file_path) as pdf:
             for page in pdf.pages:
                 page_text = page.extract_text()
@@ -53,11 +54,11 @@ def save_cover_letter_to_file(cover_letter: str, filename: str = "Cover_letter.p
         pdf.set_auto_page_break(auto=True, margin=12)
         pdf.set_font("Arial", size=10)
 
-        # Clean the text to handle encoding issues
-        # Replace problematic characters that FPDF can't handle
+        # Character encoding pipeline: Unicode → Latin-1 compatible
+        # LLMs generate Unicode smart quotes/dashes that FPDF can't handle
         cleaned_text = cover_letter.strip()
         
-        # Replace common problematic characters
+        # Replace common Unicode characters with ASCII equivalents
         replacements = {
             '\u2018': "'",  # Left single quotation mark
             '\u2019': "'",  # Right single quotation mark
@@ -72,7 +73,7 @@ def save_cover_letter_to_file(cover_letter: str, filename: str = "Cover_letter.p
         for old_char, new_char in replacements.items():
             cleaned_text = cleaned_text.replace(old_char, new_char)
         
-        # Remove any remaining characters that can't be encoded in latin-1
+        # Final safety: strip any remaining non-Latin-1 characters
         cleaned_text = cleaned_text.encode('latin-1', errors='ignore').decode('latin-1')
 
         # Split cover letter into lines for PDF

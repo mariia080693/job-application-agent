@@ -2,6 +2,8 @@ from google.adk.agents import Agent
 from ..config import config
 import datetime
 
+# Writer agent: Executes outline with style constraints (natural language)
+# Template example guides structure without content plagiarism
 COVER_LETTER_WRITER_INSTRUCTION = """
 You are a professional cover letter writer.
 Your goal is to write a 1 page cover letter (under 300 words) based on given cover letter outline {cover_letter_outline}.
