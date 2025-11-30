@@ -41,7 +41,7 @@ Right after that proceed with:
 
 3. You must complete the preceding step before moving to this step.
    Use cv_reader to load, extract and present text from the file 'CV.pdf' with job applicant information. Never ask the user for a path; always read from 'CV.pdf'.
-   You must present all information about the CV clearly and neatly, and then move to the next step.
+   You must present all information about the CV clearly and neatly.
    
 4. You must complete the preceding step before moving to this step.
    Use sequential_planner_writer to first create a good structure for a cover letter based on the job description and the data extracted from the user's CV, and then draft a professional cover letter based on the created outline.
